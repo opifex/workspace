@@ -1,0 +1,119 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:${NGINX_TAG}
+    hostname: nginx
+    container_name: $PREFIX-nginx
+    restart: always
+    ports:
+      - "${NGINX_PORT}:80"
+    depends_on:
+      - mailcatcher
+      - rabbitmq
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      internal:
+
+  redis:
+    image: redis:${REDIS_TAG}
+    hostname: redis
+    container_name: $PREFIX-redis
+    restart: always
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - "${REDIS_VOLUME}:/data"
+    networks:
+      internal:
+
+  rabbitmq:
+    image: rabbitmq:${RABBITMQ_TAG}
+    hostname: rabbitmq
+    container_name: $PREFIX-rabbitmq
+    restart: always
+    ports:
+      - "${RABBITMQ_PORT}:5672"
+    volumes:
+      - "${RABBITMQ_VOLUME}:/var/lib/rabbitmq"
+    networks:
+      internal:
+
+  postgres:
+    image: postgres:${POSTGRES_TAG}
+    hostname: postgres
+    container_name: $PREFIX-postgres
+    restart: always
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      POSTGRES_DB: workspace
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+    volumes:
+      - "${POSTGRES_VOLUME}:/var/lib/postgresql/data"
+    networks:
+      internal:
+
+  mariadb:
+    image: mariadb:${MARIADB_TAG}
+    hostname: postgres
+    container_name: $PREFIX-mariadb
+    restart: always
+    ports:
+      - "${MARIADB_PORT}:3306"
+    environment:
+      MARIADB_PASSWORD: password
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_USER: admin
+    volumes:
+      - "${MARIADB_VOLUME}:/var/lib/mysql"
+    networks:
+      internal:
+
+  mongo:
+    image: mongo:${MONGO_TAG}
+    hostname: mongo
+    container_name: $PREFIX-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - "${MONGO_VOLUME}:/data/db"
+      - "${MONGO_VOLUME}:/data/configdb"
+    ports:
+      - "${MONGO_PORT}:27017"
+    networks:
+      internal:
+
+  mailcatcher:
+    image: opifex/mailcatcher:${MAILCATCHER_TAG}
+    hostname: mailcatcher
+    container_name: $PREFIX-mailcatcher
+    restart: always
+    ports:
+      - "${MAILCATCHER_PORT}:1025"
+    entrypoint: [ "mailcatcher", "--smtp-ip=0.0.0.0", "--http-ip=0.0.0.0", "--http-path=mailcatcher", "--foreground" ]
+    networks:
+      internal:
+
+  httpbin:
+    image: kennethreitz/httpbin:${HTTPBIN_TAG}
+    hostname: httpbin
+    container_name: $PREFIX-httpbin
+    restart: always
+    networks:
+      internal:
+
+volumes:
+  mariadb:
+  mongo:
+  postgres:
+  rabbitmq:
+  redis:
+
+networks:
+  internal:
+    name: $PREFIX-network
