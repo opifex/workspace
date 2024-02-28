@@ -2,6 +2,8 @@
 
 Complete development infrastructure for software engineers.
 
+![GitHub License](https://img.shields.io/github/license/opifex/workspace)
+
 ## Services
 
 - httpbin \- simple http request and response service.
