@@ -10,6 +10,7 @@ services:
       - "${NGINX_PORT}:80"
     depends_on:
       - mailcatcher
+      - mockserver
       - rabbitmq
     volumes:
       - ./docker/nginx.conf:/etc/nginx/nginx.conf
@@ -96,6 +97,14 @@ services:
     ports:
       - "${MAILCATCHER_PORT}:1025"
     entrypoint: [ "mailcatcher", "--smtp-ip=0.0.0.0", "--http-ip=0.0.0.0", "--http-path=mailcatcher", "--foreground" ]
+    networks:
+      internal:
+
+  mockserver:
+    image: mockserver/mockserver:${MOCKSERVER_TAG}
+    hostname: mockserver
+    container_name: $PREFIX-mockserver
+    restart: always
     networks:
       internal:
 
