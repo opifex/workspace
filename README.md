@@ -49,6 +49,12 @@ You can access api for HTTPBin via url.
 http://localhost[:nginx-port]/httpbin/
 ```
 
+You can access api for Mockserver via url.
+
+```
+http://localhost[:nginx-port]/mockserver/
+```
+
 ## Interface
 
 You can access web interface for RabbitMQ via url.
