@@ -9,6 +9,7 @@ Complete development infrastructure for software engineers.
 - httpbin \- simple http request and response service.
 - mailcatcher \- simple SMTP server with web interface.
 - mariadb \- relational database management system.
+- mockserver \- tool simulating APIs responses.
 - mongo \- document-oriented NoSQL database.
 - nginx \- web / proxy server with load balancer.
 - postgres \- RDMS with emphasizing extensibility.
