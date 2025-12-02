@@ -53,7 +53,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: admin
     volumes:
-      - "${POSTGRES_VOLUME}:/var/lib/postgresql/data"
+      - "${POSTGRES_VOLUME}:/var/lib/postgresql"
     networks:
       internal:
 
