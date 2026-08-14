@@ -109,7 +109,7 @@ services:
       internal:
 
   httpbin:
-    image: kennethreitz/httpbin:${HTTPBIN_TAG}
+    image: ghcr.io/mccutchen/go-httpbin:${HTTPBIN_TAG}
     hostname: httpbin
     container_name: $PREFIX-httpbin
     restart: always
