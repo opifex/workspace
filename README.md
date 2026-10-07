@@ -7,7 +7,7 @@ Complete development infrastructure for software engineers.
 ## Services
 
 - httpbin \- simple http request and response service.
-- mailcatcher \- simple SMTP server with web interface.
+- mailpit \- email testing tool with SMTP server and web interface.
 - mariadb \- relational database management system.
 - mockserver \- tool simulating APIs responses.
 - mongo \- document-oriented NoSQL database.
@@ -38,7 +38,7 @@ SERVICE_VOLUME=volume
 You can run all services with command.
 
 ```sh
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 ## Api
@@ -63,8 +63,8 @@ You can access web interface for RabbitMQ via url.
 http://localhost[:nginx-port]/rabbitmq/
 ```
 
-You can access web interface for Mailcatcher via url.
+You can access web interface for Mailpit via url.
 
 ```
-http://localhost[:nginx-port]/mailcatcher/
+http://localhost[:nginx-port]/mailpit/
 ```
